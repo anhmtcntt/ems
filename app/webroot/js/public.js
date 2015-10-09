@@ -1,0 +1,64 @@
+formatSelectBox('department');
+initPage();
+
+$('.delete-row').click(function(e){
+    if (confirm('Are U sure ? Some infor will be delete')) {
+        location.href = $(this).attr('href');
+    }
+    e.preventDefault;
+});
+
+function formatSelectBox(id) {
+    $('#' + id).select2({
+        minimumResultsForSearch: -1
+    });
+}
+
+function getData () {
+    var data = {
+        page_size  : $('#page_size').val(),
+        keyword    : $('#keyword').val()
+    };
+    var page = $('#curpage').find('li.active').find('a').attr('page');
+    data['page'] = page;
+    
+    return data;
+}
+
+function sendData() {
+    var data = getData();
+    var form = $('#page_size').attr('page-form');
+    $.ajax({
+        url:  form+"/search",
+        method: "POST",
+        beforeSend: function () {
+            $('#result').html('<span><img src="images/loader6.gif"></span>');
+        },
+        data: data,
+        success: function (response) {
+            $('#result').html(response);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(textStatus);
+        }
+    });
+}
+
+function initPage() {
+    formatSelectBox('page_size');
+    $('#page_size').change(function () {
+        sendData();
+    });
+    $('#curpage a').click(function (e) {
+        $('#curpage').find('li.active').removeClass('active');
+        $(this).parent().addClass('active');
+        sendData();
+        e.preventDefault();
+    });
+}
+
+$('.searchbtn').click(function(e) {
+    sendData();
+    e.preventDefault();
+});
+
