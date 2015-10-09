@@ -62,7 +62,7 @@ class AppController extends Controller {
     /**
      * uploads files to the server
      */
-    protected function uploadFiles($folder, $formdata, $itemId = null) {
+    protected function uploadFiles($folder, $file) {
         // setup dir names absolute and relative
         $folder_url = WWW_ROOT.$folder;
         $rel_url = $folder;
@@ -72,68 +72,53 @@ class AppController extends Controller {
             mkdir($folder_url);
         }
 
-        // if itemId is set create an item folder
-        if($itemId) {
-            // set new absolute folder
-            $folder_url = WWW_ROOT.$folder.DS.$itemId;
-            // set new relative folder
-            $rel_url = $folder.DS.$itemId;
-            // create directory
-            if(!is_dir($folder_url)) {
-                mkdir($folder_url);
-            }
-        }
-
         // list of permitted file types, this is only images but documents can be added
         $permitted = array('image/gif','image/jpeg','image/pjpeg','image/png');
+       
+        // replace spaces with underscores
+        $filename = str_replace(' ', '_', $file['name']);
+        // assume filetype is false
+        $typeOK = false;
+        // check filetype is ok
+        if (in_array($filename, $permitted)) {
+            $typeOk = true;
+        }
 
-        // loop through and deal with the files
-        foreach($formdata as $file) {
-            // replace spaces with underscores
-            $filename = str_replace(' ', '_', $file['name']);
-            // assume filetype is false
-            $typeOK = false;
-            // check filetype is ok
-            if (in_array($typeOK, $permitted)) {
-                $typeOk = true;
+        // if file type ok upload the file
+        if($typeOK) {
+            // switch based on error code
+            switch($file['error']) {
+                case UPLOAD_ERR_OK:
+                    // check filename already exists
+                    if(!file_exists($folder_url.DS.$filename)) {
+                        $full_url = $folder_url.DS.$filename;
+                        $url = $rel_url.DS.$filename;
+                    } else {
+                        // create unique filename and upload file
+                        $now = date('YmdHis');
+                        $full_url = $folder_url.DS.$now.$filename;
+                        $url = $rel_url.DS.$now.$filename;
+                    }
+                    $success = move_uploaded_file($file['tmp_name'], $url);
+
+                    // if upload was successful
+                    if($success) {
+                        $result['urls'][] = $url;
+                    } else {
+                        $result['errors'][] = "Error uploaded {$filename} Please try again.";
+                    }
+                    break;
+                case UPLOAD_ERR_PARTIAL:
+                    $result['errors'][] = "Error uploading {$filename} Please try again.";
+                    break;
+                default:
+                    $result['errors'][] = "System error uploading {$filename} Contact webmaster.";
+                    break;
             }
-                
-            // if file type ok upload the file
-            if($typeOK) {
-                // switch based on error code
-                switch($file['error']) {
-                    case UPLOAD_ERR_OK:
-                        // check filename already exists
-                        if(!file_exists($folder_url.DS.$filename)) {
-                            $full_url = $folder_url.DS.$filename;
-                            $url = $rel_url.DS.$filename;
-                        } else {
-                            // create unique filename and upload file
-                            $now = date('YmdHis');
-                            $full_url = $folder_url.DS.$now.$filename;
-                            $url = $rel_url.DS.$now.$filename;
-                        }
-                        $success = move_uploaded_file($file['tmp_name'], $url);
-                        
-                        // if upload was successful
-                        if($success) {
-                            $result['urls'][] = $url;
-                        } else {
-                            $result['errors'][] = "Error uploaded {$filename} Please try again.";
-                        }
-                        break;
-                    case UPLOAD_ERR_PARTIAL:
-                        $result['errors'][] = "Error uploading {$filename} Please try again.";
-                        break;
-                    default:
-                        $result['errors'][] = "System error uploading {$filename} Contact webmaster.";
-                        break;
-                }
-            } elseif($file['error'] == UPLOAD_ERR_NO_FILE) {
-                $result['nofiles'][] = "No file selected";
-            } else {
-                $result['errors'][] = "{$filename} cannot be uploaded. Acceptable file types: gif, jpg, png.";
-            }
+        } elseif($file['error'] == UPLOAD_ERR_NO_FILE) {
+            $result['nofiles'][] = "No file selected";
+        } else {
+            $result['errors'][] = "{$filename} cannot be uploaded. Acceptable file types: gif, jpg, png.";
         }
         return $result;
     }

@@ -10,9 +10,11 @@
                 </tr>
             </thead>
             <tbody>
-            <?php if (count($data) > 0 ) :
+            <?php 
+            if (count($data) > 0 ) :
                 $row = 1;
-                foreach($data as $ele) :?>
+                foreach($data as $ele) :
+                    ?>
                     <tr>
                         <td><?php echo $row++; ?></td>
                             <td><?php echo $this->Html->link( $ele['Department']['name'],
@@ -26,11 +28,16 @@
                                 array('controller' => 'departments', 'action'=>'delete',$ele['Department']['id']),array('data-toggle' => 'tooltip','class'=>'tooltips','data-original-title'=>'Delete','escape' => false)); ?>
                             </td>
                     </tr>
-                <?php endforeach; else : ?>
+                <?php 
+                endforeach; 
+                else : 
+                    ?>
                     <tr>
                         <td colspan="4" class="text-center">No data exists</td>
                     </tr>
-            <?php endif; ?>
+            <?php 
+            endif; 
+            ?>
             </tbody>
         </table>
     </div>

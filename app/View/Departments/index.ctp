@@ -56,19 +56,23 @@
                                 array('controller' => 'departments', 'action'=>'detail',$ele['Department']['id'])); ?></td>
                             <td><?php echo $ele['Department']['tel']; ?></td>
                             <td class="table-action">
-                                <?php echo $this->Html->link( '<i class="fa fa-pencil"></i>',
+                                <?php echo $this->Html->link('<i class="fa fa-pencil"></i>',
                                 array('controller' => 'departments', 'action'=>'edit',$ele['Department']['id']),array('data-toggle' => 'tooltip','class'=>'tooltips','data-original-title'=>'Edit','escape' => false)); ?>                              
                                 &nbsp;
-                                <?php echo $this->Html->link( '<i class="fa fa-trash-o"></i>',
+                                <?php echo $this->Html->link('<i class="fa fa-trash-o"></i>',
                                 array('controller' => 'departments', 'action'=>'delete',$ele['Department']['id']),array('data-toggle' => 'tooltip','class'=>'tooltips','data-original-title'=>'Delete','escape' => false)); ?>
                             </td>
                         </tr>
-                    <?php endforeach;
-                        else :?>
+                    <?php 
+                    endforeach;
+                        else :
+                    ?>
                         <tr>
                             <td colspan="4" class="text-center">No data exists</td>
                         </tr>
-                <?php endif; ?>
+                <?php 
+                    endif; 
+                ?>
                 </tbody>
             </table>
         </div>

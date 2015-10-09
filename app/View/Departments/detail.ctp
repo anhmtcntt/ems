@@ -42,15 +42,18 @@
             <tbody>
               <?php if (count($data['Employee']) > 0) : 
                   $row = 1;
-                foreach ($data['Employee'] as $ele) :?>
+                foreach ($data['Employee'] as $ele) :
+                    ?>
                     <tr>
                         <td class="width3pc"><?php echo $row++; ?></td>
                         <td><a href="<?php echo $this->webroot.'employees/detail/'.$ele['id'];?>"><?php echo $ele['name']; ?></a></td>
                       <td><?php echo $ele['gender']==0?"Male":"Female"; ?></td>
                       <td><?php echo $ele['email']; ?></td>
                     </tr>
-                <?php endforeach;
-                endif; ?>
+                <?php 
+                endforeach;
+                endif; 
+                ?>
             </tbody>
           </table>
           </div>
