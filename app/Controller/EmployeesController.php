@@ -8,12 +8,9 @@ class EmployeesController extends AppController
     
     public function index()
     {
-        $total = $this->Employee->find('count');
-        $pagemax = ceil($total/10);
-        $data = $this->Employee->find('all',array('limit'=> 10));
+        $data = $this->Employee->find('all');
         
         //set view
-        $this->set('pagemax',$pagemax);
         $this->set('data',$data);
     }
     

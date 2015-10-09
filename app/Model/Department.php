@@ -37,9 +37,7 @@ class Department extends AppModel
         }
         
         return $this->find('all',array(
-            'conditions' => $conditions,
-            'limit'     => $arr['page_size'],
-            'offset'    => (($arr['page'] - 1) * $arr['page_size'])
+            'conditions' => $conditions
         ));
     }
 }

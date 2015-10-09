@@ -1,5 +1,5 @@
 <div id="result">
-    <div class="row row-stat">
+    <div class="row row-stat" id="page_size" page-form="departments">
         <table id="basicTable" class="table table-striped table-bordered responsive">
             <thead>
                 <tr>
@@ -15,15 +15,18 @@
                 foreach($data as $ele) :?>
                     <tr>
                         <td><?php echo $row++; ?></td>
-                        <td><a href="<?php echo $this->webroot; ?>departments/detail/<?php echo $ele['Department']['id'];?>"> <?php echo $ele['Department']['name']; ?></a></td>
-                        <td><?php echo $ele['Department']['tel']; ?></td>
-                        <td class="table-action">
-                            <a href="<?php echo $this->webroot; ?>departments/edit/<?php echo $ele['Department']['id']; ?>" data-toggle="tooltip"  class="tooltips" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                            &nbsp;
-                            <a href="<?php echo $this->webroot; ?>departments/delete/<?php echo $ele['Department']['id']; ?>" class="delete-row tooltips" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                        </td>
+                            <td><?php echo $this->Html->link( $ele['Department']['name'],
+                                array('controller' => 'departments', 'action'=>'detail',$ele['Department']['id'])); ?></td>
+                            <td><?php echo $ele['Department']['tel']; ?></td>
+                            <td class="table-action">
+                                <?php echo $this->Html->link( '<i class="fa fa-pencil"></i>',
+                                array('controller' => 'departments', 'action'=>'edit',$ele['Department']['id']),array('data-toggle' => 'tooltip','class'=>'tooltips','data-original-title'=>'Edit','escape' => false)); ?>                              
+                                &nbsp;
+                                <?php echo $this->Html->link( '<i class="fa fa-trash-o"></i>',
+                                array('controller' => 'departments', 'action'=>'delete',$ele['Department']['id']),array('data-toggle' => 'tooltip','class'=>'tooltips','data-original-title'=>'Delete','escape' => false)); ?>
+                            </td>
                     </tr>
-                <?php endforeach; else ?>
+                <?php endforeach; else : ?>
                     <tr>
                         <td colspan="4" class="text-center">No data exists</td>
                     </tr>
@@ -32,7 +35,3 @@
         </table>
     </div>
 </div>
-
-<script>
-    initPage();
-</script>

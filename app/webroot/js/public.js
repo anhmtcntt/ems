@@ -1,5 +1,4 @@
 formatSelectBox('department');
-initPage();
 
 $('.delete-row').click(function(e){
     if (confirm('Are U sure ? Some infor will be delete')) {
@@ -40,18 +39,6 @@ function sendData() {
     });
 }
 
-function initPage() {
-    formatSelectBox('page_size');
-    $('#page_size').change(function () {
-        sendData();
-    });
-    $('#curpage a').click(function (e) {
-        $('#curpage').find('li.active').removeClass('active');
-        $(this).parent().addClass('active');
-        sendData();
-        e.preventDefault();
-    });
-}
 
 $('.searchbtn').click(function(e) {
     sendData();

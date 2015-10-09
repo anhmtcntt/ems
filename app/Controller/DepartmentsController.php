@@ -12,12 +12,9 @@ class DepartmentsController extends AppController
     
     public function index()
     {
-        $total = $this->Department->find('count');
-        $pagemax = ceil($total/10);
-        $data = $this->Department->find('all',array('limit'=> 10));
+        $data = $this->Department->find('all');
         
         //set view
-        $this->set('pagemax',$pagemax);
         $this->set('data',$data);
     }
     
@@ -93,12 +90,8 @@ class DepartmentsController extends AppController
 
         if ( $this->request->isAjax() ) {
             $data = $this->Department->search($this->request->data);
-            $total = $this->Department->find('count');
-            $pagemax = ceil($total/$this->request->data['page_size']);
+
             $this->set('data', $data);
-            $this->set('total', $total);
-            $this->set('pagemax', $pagemax);
-            $this->set('default', $this->request->data);
         }
     }
     

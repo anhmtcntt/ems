@@ -36,7 +36,7 @@
         <div class="errorForm"><?php echo $this->Flash->render(); ?></div>
     </div>
     <div id="result">
-        <div class="row row-stat">
+        <div class="row row-stat" id="page_size" page-form="departments">
             <table id="basicTable" class="table table-striped table-bordered responsive">
                 <thead>
                     <tr>

@@ -10,12 +10,7 @@
 
     <title>EMPLOYEE MANAGEMENT SYSTEM</title>
 
-    <link href="<?php echo $this->webroot.'css/style.default.css'; ?>" rel="stylesheet">
-    <link href="<?php echo $this->webroot.'css/morris.css'; ?>" rel="stylesheet">
-    <link href="<?php echo $this->webroot.'css/select2.css'; ?>" rel="stylesheet">
-    <link href="<?php echo $this->webroot.'css/style.datatables.css'; ?>" rel="stylesheet">
-    <link href="<?php echo $this->webroot.'css/dataTables.responsive.css'; ?>" rel="stylesheet">
-    <link href="<?php echo $this->webroot.'css/public.css'; ?>" rel="stylesheet">
+    <?php echo $this->Html->css(array('style.default', 'morris', 'select2','style.datatables','dataTables.responsive','public')); ?>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -87,29 +82,31 @@
     </div><!-- mainwrapper -->
 </section>
 
-<script async="" src="<?php echo $this->webroot.'js/analytics.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/jquery-1.11.1.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/jquery-migrate-1.2.1.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/jquery-ui-1.10.3.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/bootstrap.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/modernizr.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/pace.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/retina.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/jquery.cookies.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/jquery.validate.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/jquery.flot.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/jquery.flot.resize.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/jquery.flot.spline.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/jquery.sparkline.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/morris.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/raphael-2.1.0.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/bootstrap-wizard.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/jquery.dataTables.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/dataTables.bootstrap.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/dataTables.responsive.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/select2.min.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/custom.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/dashboard.js'; ?>"></script>
-<script src="<?php echo $this->webroot.'js/public.js'; ?>"></script>
+<?php echo $this->Html->script(
+        array('analytics', 
+            'jquery-1.11.1.min', 
+            'jquery-migrate-1.2.1.min',
+            'jquery-ui-1.10.3.min',
+            'bootstrap.min',
+            'modernizr.min',
+            'pace.min',
+            'retina.min',
+            'jquery.cookies',
+            'jquery.validate',
+            'jquery.flot.min',
+            'jquery.flot.resize.min',
+            'jquery.flot.spline.min',
+            'jquery.sparkline.min',
+            'morris.min',
+            'raphael-2.1.0.min',
+            'bootstrap-wizard.min',
+            'jquery.dataTables.min',
+            'dataTables.bootstrap',
+            'dataTables.responsive',
+            'select2.min',
+            'custom',
+            'dashboard',
+            'public'
+    ));?>
 
 <span role="status" aria-live="polite" class="select2-hidden-accessible"></span><span role="status" aria-live="polite" class="select2-hidden-accessible"></span><span role="status" aria-live="polite" class="select2-hidden-accessible"></span></body></html>
