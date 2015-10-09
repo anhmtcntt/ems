@@ -24,11 +24,11 @@
                         <label class="col-sm-3 control-label">Name <span class="asterisk color-red">*</span></label>
                         <div class="col-sm-9">
                             <?php echo $this->Form->input('name',
-                                array('class' => 'form-control'
-                                , 'placeholder' => 'Name'
-                                , 'label' => false
-                                , 'div' => false
-                                , 'type' => 'text'
+                                array('class' => 'form-control',
+                                    'placeholder' => 'Name',
+                                    'label' => false,
+                                    'div' => false,
+                                    'type' => 'text'
                                 ));
                             ?>
                         </div>
@@ -38,11 +38,11 @@
                         <label class="col-sm-3 control-label">Telephone</label>
                         <div class="col-sm-9">
                             <?php echo $this->Form->input('tel',
-                                array('class' => 'form-control'
-                                , 'placeholder' => 'Telephone number'
-                                , 'label' => false
-                                , 'div' => false
-                                , 'type' => 'text'
+                                array('class' => 'form-control',
+                                    'placeholder' => 'Telephone number',
+                                    'label' => false,
+                                    'div' => false,
+                                    'type' => 'text'
                                 ));
                             ?>
                         </div>
@@ -65,7 +65,7 @@
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-sm-9 col-sm-offset-3">
-                                <?php echo $this->Form->button('Add', array('type' => 'submit', 'class' => 'btn btn-primary mr5')); ?>
+                                <?php echo $this->Form->submit('Add', array('class' => 'btn btn-primary mr5','div'=>false)); ?>
                                 <?php echo $this->Html->link('Cancel', array('controller' => 'departments','action'=>'index'),array('class' => 'btn btn-dark')); ?>
                             </div>
                         </div>

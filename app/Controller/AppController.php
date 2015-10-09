@@ -75,9 +75,9 @@ class AppController extends Controller {
         // if itemId is set create an item folder
         if($itemId) {
             // set new absolute folder
-            $folder_url = WWW_ROOT.$folder.'/'.$itemId;
+            $folder_url = WWW_ROOT.$folder.DS.$itemId;
             // set new relative folder
-            $rel_url = $folder.'/'.$itemId;
+            $rel_url = $folder.DS.$itemId;
             // create directory
             if(!is_dir($folder_url)) {
                 mkdir($folder_url);
@@ -94,58 +94,47 @@ class AppController extends Controller {
             // assume filetype is false
             $typeOK = false;
             // check filetype is ok
-            foreach($permitted as $type) {
-                if($type == $file['type']) {
-                    $typeOK = true;
-                    break;
-                }
+            if (in_array($typeOK, $permitted)) {
+                $typeOk = true;
             }
-
+                
             // if file type ok upload the file
             if($typeOK) {
                 // switch based on error code
                 switch($file['error']) {
-                    case 0:
+                    case UPLOAD_ERR_OK:
                         // check filename already exists
-                        if(!file_exists($folder_url.'/'.$filename)) {
-                            $full_url = $folder_url.'/'.$filename;
-                            $url = $rel_url.'/'.$filename;
-                            $success = move_uploaded_file($file['tmp_name'], $url);
+                        if(!file_exists($folder_url.DS.$filename)) {
+                            $full_url = $folder_url.DS.$filename;
+                            $url = $rel_url.DS.$filename;
                         } else {
                             // create unique filename and upload file
-                            ini_set('date.timezone', 'UTC');
                             $now = date('YmdHis');
-                            $full_url = $folder_url.'/'.$now.$filename;
-                            $url = $rel_url.'/'.$now.$filename;
-                            $success = move_uploaded_file($file['tmp_name'], $url);
+                            $full_url = $folder_url.DS.$now.$filename;
+                            $url = $rel_url.DS.$now.$filename;
                         }
+                        $success = move_uploaded_file($file['tmp_name'], $url);
+                        
                         // if upload was successful
                         if($success) {
                             $result['urls'][] = $url;
                         } else {
-                            $result['errors'][] = "Error uploaded $filename. Please try again.";
+                            $result['errors'][] = "Error uploaded {$filename} Please try again.";
                         }
                         break;
-                    case 3:
-                        $result['errors'][] = "Error uploading $filename. Please try again.";
+                    case UPLOAD_ERR_PARTIAL:
+                        $result['errors'][] = "Error uploading {$filename} Please try again.";
                         break;
                     default:
-                        $result['errors'][] = "System error uploading $filename. Contact webmaster.";
+                        $result['errors'][] = "System error uploading {$filename} Contact webmaster.";
                         break;
                 }
-            } elseif($file['error'] == 4) {
-                $result['nofiles'][] = "No file Selected";
+            } elseif($file['error'] == UPLOAD_ERR_NO_FILE) {
+                $result['nofiles'][] = "No file selected";
             } else {
-                $result['errors'][] = "$filename cannot be uploaded. Acceptable file types: gif, jpg, png.";
+                $result['errors'][] = "{$filename} cannot be uploaded. Acceptable file types: gif, jpg, png.";
             }
         }
         return $result;
-    }
-    
-    protected function checkImage ($name) {
-        if ( $name == '' || file_exists('img/upload/'.$name )) {
-            $name = 'img/upload/noimage.png';
-        }
-        return $name;
     }
 }

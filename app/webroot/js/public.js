@@ -16,12 +16,8 @@ function formatSelectBox(id) {
 
 function getData () {
     var data = {
-        page_size  : $('#page_size').val(),
         keyword    : $('#keyword').val()
     };
-    var page = $('#curpage').find('li.active').find('a').attr('page');
-    data['page'] = page;
-    
     return data;
 }
 

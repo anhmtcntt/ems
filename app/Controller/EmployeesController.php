@@ -1,14 +1,10 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+define ('PHOTO_FOLDER',"img/upload");
 
 class EmployeesController extends AppController 
 {
     public $uses = array('Employee','Department');
+    
     
     public function index()
     {
@@ -33,7 +29,7 @@ class EmployeesController extends AppController
                 // upload file if exists
                 if ($filename != '') {
                     $upload['photo'] = $data['Employee']['photo'];
-                    $result = $this->uploadFiles('img/upload', $upload);
+                    $result = $this->uploadFiles(PHOTO_FOLDER, $upload);
                     if (isset($result['errors'])) {
                         $uploadOk = false;
                         $this->Session->setFlash($result['errors'][0]);
@@ -61,7 +57,7 @@ class EmployeesController extends AppController
         
         if ($this->Employee->delete($id)) {
             $this->Session->setFlash('Delete success!','success');
-                    $this->redirect(['action' => 'index']);
+            $this->redirect(['action' => 'index']);
         } else {
             throw new InternalErrorException();
         }
@@ -86,7 +82,7 @@ class EmployeesController extends AppController
                 // upload file if exists
                 if ($filename != '') {
                     $upload['photo'] = $data['Employee']['photo'];
-                    $result = $this->uploadFiles('img/upload', $upload);
+                    $result = $this->uploadFiles(PHOTO_FOLDER, $upload);
                     if (isset($result['errors'])) {
                         $uploadOk = false;
                         $this->Session->setFlash($result['errors'][0]);

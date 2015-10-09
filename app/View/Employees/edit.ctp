@@ -14,7 +14,7 @@
 </div>
 
 <div class="contentpanel">
-    <?php echo $this->Session->flash();?>
+    <?php echo $this->Flash->render();?>
     <div class="col-md-12">
         <?php echo $this->Form->create('Employee', array('type' => 'file', 'id' => 'addForm', 'novalidate' => 'novalidate')); ?>
             <div class="panel panel-default">
@@ -40,11 +40,11 @@
                             <label class="col-sm-3 control-label">Employee Code <span class="asterisk color-red">*</span></label>
                             <div class="col-sm-9">
                                 <?php echo $this->Form->input('employee_cd',
-                                    array('class' => 'form-control'
-                                    , 'placeholder' => 'Type your employee code...'
-                                    , 'label' => false
-                                    , 'div' => false
-                                    , 'value' => $data['Employee']['employee_cd']
+                                    array('class' => 'form-control',
+                                    'placeholder' => 'Type your employee code...',
+                                    'label' => false,
+                                    'div' => false,
+                                    'value' => $data['Employee']['employee_cd']
                                     ));
                                 ?>
                             </div>
@@ -54,12 +54,12 @@
                             <label class="col-sm-3 control-label">Name <span class="asterisk color-red">*</span></label>
                             <div class="col-sm-9">
                                 <?php echo $this->Form->input('name',
-                                    array('class' => 'form-control'
-                                    , 'placeholder' => 'Type your name...'
-                                    , 'label' => false
-                                    , 'div' => false
-                                    , 'required' => 'required'
-                                    , 'value' => $data['Employee']['name']
+                                    array('class' => 'form-control',
+                                    'placeholder' => 'Type your name...',
+                                    'label' => false,
+                                    'div' => false,
+                                    'required' => 'required',
+                                    'value' => $data['Employee']['name']
                                 ));?>
                             </div>
                         </div>
@@ -68,13 +68,13 @@
                             <label class="col-sm-3 control-label">Email <span class="asterisk color-red">*</span></label>
                             <div class="col-sm-9">
                                 <?php echo $this->Form->input('email',
-                                    array('class' => 'form-control'
-                                    , 'placeholder' => 'Type your email...'
-                                    , 'label' => false
-                                    , 'div' => false
-                                    , 'type' => 'email'
-                                    , 'required' => 'required'
-                                    , 'value' => $data['Employee']['email']));?>
+                                    array('class' => 'form-control',
+                                    'placeholder' => 'Type your email...',
+                                    'label' => false,
+                                    'div' => false,
+                                    'type' => 'email',
+                                    'required' => 'required',
+                                    'value' => $data['Employee']['email']));?>
                             </div>
                         </div>
 
@@ -82,12 +82,12 @@
                             <label class="col-sm-3 control-label">Phone</label>
                             <div class="col-sm-9">
                                 <?php echo $this->Form->input('tel',
-                                    array('class' => 'form-control'
-                                    , 'placeholder' => 'Type your phone number...'
-                                    , 'label' => false
-                                    , 'div' => false
-                                    , 'type' => 'text'
-                                    , 'value' => $data['Employee']['tel']));?>
+                                    array('class' => 'form-control',
+                                    'placeholder' => 'Type your phone number...',
+                                    'label' => false,
+                                    'div' => false,
+                                    'type' => 'text',
+                                    'value' => $data['Employee']['tel']));?>
                             </div>
                         </div>
 
@@ -115,23 +115,22 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Profile Picture</label>
                             <div class="col-sm-9">
-                                <?php  echo $this->Form->input('photo',array( 'type' => 'file', 'label'=> false, 'div'=> false, 'id'=>'pro-image')); ?>
+                                <?php echo $this->Form->input('photo',array( 'type' => 'file', 'label'=> false, 'div'=> false, 'id'=>'pro-image')); ?>
                                 <div class="div-pro-img"><img class="pro-img"/></div>
                             </div>
                         </div>
-
                     </div>
-                </div><!-- panel-body -->
+                </div>
                 
                 <?php echo $this->Form->hidden('id', array('value' => $data['Employee']['id']));?>
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <?php echo $this->Form->button('Submit', array('type' => 'submit', 'class' => 'btn btn-primary mr5')); ?>
+                            <?php echo $this->Form->submit('Submit', array('div' => false, 'class' => 'btn btn-primary mr5')); ?>
                             <?php echo $this->Html->link('Cancel', array('controller' => 'employees','action'=>'index'),array('class' => 'btn btn-dark')); ?>
                         </div>
                     </div>
-                </div><!-- panel-footer -->
+                </div>
             </div>
     </div>
     <?php echo $this->Form->end(); ?>

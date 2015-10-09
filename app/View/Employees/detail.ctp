@@ -10,8 +10,8 @@
             </ul>
             <h4>Employee Information</h4>
         </div>
-    </div><!-- media -->
-</div><!-- pageheader -->
+    </div>
+</div>
 
 <div class="contentpanel">
     <div class="panel panel-default">
@@ -20,9 +20,10 @@
                 <div class="col-sm-6">
                     <h5 class="lg-title mb10"><?php echo $data['Employee']['name'];?></h5>
                     <?php if ($data['Employee']['photo'] == '' || !file_exists($data['Employee']['photo'])) {
-                        $data['Employee']['photo'] = 'img/noimage.png';
+                        $data['Employee']['photo'] = 'noimage.png';
                     }; ?>
-                    <img src="<?php echo $this->webroot.$data['Employee']['photo']; ?>" class="img-responsive mb10" alt="" width="50px">
+                    <?php echo $this->Html->image($data['Employee']['photo'], array('alt' => '','class'=> 'img-responsive mb','width'=>'50px')); ?>
+                    
                     <address>
                         <?php echo $data['Employee']['email']; ?>
                     </address>
@@ -35,8 +36,8 @@
                     </address>
                     <p><strong>Tel: </strong><?php echo $data['Employee']['tel'];?></p>
                 </div>
-            </div><!-- row -->
-        </div><!-- panel-body -->
-    </div><!-- panel -->  
-</div><!-- contentpanel -->
+            </div>
+        </div>
+    </div> 
+</div>
 
