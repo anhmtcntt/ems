@@ -19,26 +19,26 @@ class EmployeesController extends AppController
         $department = $this->Department->find('list');
         
         if ($this->request->is('post')) {
-            if (!$this->Employee->validates()) {
-                $data = $this->request->data;
-                $filename = $data['Employee']['photo']['name'];
-                $uploadOk = true;
-                // upload file if exists
-                if ($filename != '') {
-                    $upload = $data['Employee']['photo'];
-                    $result = $this->uploadFile(PHOTO_FOLDER, $upload);
-                    if (isset($result['errors'])) {
-                        $uploadOk = false;
-                        $this->Flash->error($result['errors']);
-                    } else {
-                        $data['Employee']['photo'] = $result['urls'];
-                    }
+            $data = $this->request->data;
+            $filename = $data['Employee']['photo']['name'];
+            $uploadOk = true;
+            // upload file if exists
+            if ($filename != '') {
+                $upload = $data['Employee']['photo'];
+                $result = $this->uploadFile(PHOTO_FOLDER, $upload);
+                if (isset($result['error'])) {
+                    $uploadOk = false;
+                    $this->Flash->error($result['error']);
+                } else {
+                    $data['Employee']['photo'] = $result['url'];
                 }
-                if ($uploadOk && $this->Employee->add( $data )) {
-                    $this->Flash->success('Save success!');
-                    $this->redirect(['action' => 'index']);
-                } 
             }
+            if ($uploadOk && $this->Employee->add( $data )) {
+                $this->Flash->success('Add new employee success!');
+                $this->redirect(['action' => 'index']);
+            } 
+            
+            $this->Flash->error('Unable to add new employee.');
         }
         
         //set view 
@@ -68,39 +68,44 @@ class EmployeesController extends AppController
         }
         //set default data
         $department = $this->Department->find('list');
-        $data = $this->Employee->findById($id);
+        
+        // Prepare employees data for form on enter edit screen
+        if (empty($this->request->data)) {
+	    $this->request->data = $this->Employee->findById($id);
+	}
         
         if ($this->request->is('post'))
         {
-            if (!$this->Employee->validates()) {
-                $data = $this->request->data;
-                $filename = $data['Employee']['photo']['name'];
-                $uploadOk = true;
-                // upload file if exists
-                if ($filename != '') {
-                    $upload = $data['Employee']['photo'];
-                    $result = $this->uploadFile(PHOTO_FOLDER, $upload);
-                    if (isset($result['errors'])) {
-                        $uploadOk = false;
-                        $this->Session->setFlash($result['errors'][0]);
-                    } else {
-                        $data['Employee']['photo'] = $result['urls'][0];
-                    }
+            $data = $this->request->data;
+            $filename = $data['Employee']['photo']['name'];
+            $uploadOk = true;
+            // upload file if exists
+            if ($filename != '') {
+                $upload = $data['Employee']['photo'];
+                $result = $this->uploadFile(PHOTO_FOLDER, $upload);
+                if (isset($result['errors'])) {
+                    $uploadOk = false;
+                    $this->Flash->error($result['error']);
                 } else {
-                    //if filename not exists, dont update this field
-                    unset($data['Employee']['photo']);
+                    $data['Employee']['photo'] = $result['url'];
                 }
-                
-                if ($this->Employee->save( $data )) {
-                    $this->Session->setFlash('Edit success!','success');
-                    $this->redirect(['action' => 'index']);
-                } 
+            } else {
+                //if filename not exists, dont update this field
+                unset($data['Employee']['photo']);
+            }
+            if ($uploadOk && $this->Employee->update($id,$data)) {
+                $this->Flash->success('Edit success!');
+                $this->redirect(['action' => 'index']);
+            } else {
+                if (file_exists('img'.DS.$filename)) {
+                    unlink('img'.DS.$filename);
+                }
+                $this->Flash->error('Unable to update employee.');
             }
         }
         
         //set view 
         $this->set('department',$department);
-        $this->set('data',$data);
     }
     
     public function detail($id) 

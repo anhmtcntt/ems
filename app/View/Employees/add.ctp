@@ -14,7 +14,9 @@
 </div>
 
 <div class="contentpanel">
-    <?php echo $this->Flash->render();?>
+    <?php 
+        echo $this->Flash->render();
+    ?>
     <div class="col-md-12">
         <?php echo $this->Form->create('Employee', array('type' => 'file', 'id' => 'addForm', 'novalidate' => 'novalidate')); ?>
             <div class="panel panel-default">

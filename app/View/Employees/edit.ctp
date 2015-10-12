@@ -16,7 +16,17 @@
 <div class="contentpanel">
     <?php echo $this->Flash->render();?>
     <div class="col-md-12">
-        <?php echo $this->Form->create('Employee', array('type' => 'file', 'id' => 'addForm', 'novalidate' => 'novalidate')); ?>
+        <?php 
+        echo $this->Form->create('Employee', array(
+            'type'          => 'file', 
+            'id'            => 'addForm', 
+            'novalidate'    => 'novalidate',
+            'inputDefaults' => array(
+              'div'   => false,
+              'label' => false,
+          ),
+        )); 
+        ?>
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">
@@ -24,13 +34,10 @@
                             <label class="col-sm-3 control-label">Department <span class="asterisk color-red">*</span></label>
                             <div class="col-sm-9">
                                 <?php echo $this->Form->input('department_id', array(
-                                    'options' => $department,
-                                    'empty' => 'Select Department',
-                                    'id' => 'department',
-                                    'label' => false,
-                                    'class' => 'province-select',
-                                    'div' => false,
-                                    'selected' => $data['Employee']['department_id']
+                                    'options'   => $department,
+                                    'empty'     => 'Select Department',
+                                    'id'        => 'department',
+                                    'class'     => 'province-select',
                                 ));
                                 ?>
                             </div>
@@ -41,10 +48,7 @@
                             <div class="col-sm-9">
                                 <?php echo $this->Form->input('employee_cd',
                                     array('class' => 'form-control',
-                                    'placeholder' => 'Type your employee code...',
-                                    'label' => false,
-                                    'div' => false,
-                                    'value' => $data['Employee']['employee_cd']
+                                    'placeholder' => 'Type your employee code...'
                                     ));
                                 ?>
                             </div>
@@ -53,76 +57,82 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Name <span class="asterisk color-red">*</span></label>
                             <div class="col-sm-9">
-                                <?php echo $this->Form->input('name',
-                                    array('class' => 'form-control',
-                                    'placeholder' => 'Type your name...',
-                                    'label' => false,
-                                    'div' => false,
-                                    'required' => 'required',
-                                    'value' => $data['Employee']['name']
-                                ));?>
+                                <?php 
+                                echo $this->Form->input('name',array(
+                                    'class'         => 'form-control',
+                                    'placeholder'   => 'Type your name...'
+                                ));
+                                ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Email <span class="asterisk color-red">*</span></label>
                             <div class="col-sm-9">
-                                <?php echo $this->Form->input('email',
-                                    array('class' => 'form-control',
-                                    'placeholder' => 'Type your email...',
-                                    'label' => false,
-                                    'div' => false,
-                                    'type' => 'email',
-                                    'required' => 'required',
-                                    'value' => $data['Employee']['email']));?>
+                                <?php echo $this->Form->input('email',array(
+                                    'class'         => 'form-control',
+                                    'placeholder'   => 'Type your email...',
+                                    'type'          => 'email',
+                                    ));
+                                ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Phone</label>
                             <div class="col-sm-9">
-                                <?php echo $this->Form->input('tel',
-                                    array('class' => 'form-control',
-                                    'placeholder' => 'Type your phone number...',
-                                    'label' => false,
-                                    'div' => false,
-                                    'type' => 'text',
-                                    'value' => $data['Employee']['tel']));?>
+                                <?php 
+                                echo $this->Form->input('tel',array(
+                                    'class'         => 'form-control',
+                                    'placeholder'   => 'Type your phone number...',
+                                    'type'          => 'text'
+                                    ));
+                                ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Job</label>
                             <div class="col-sm-9">
-                                <?php echo $this->Form->textarea('job', array('rows' => '5', 'class' => 'form-control', 'placeholder' => 'Job title...'));?>
+                                <?php 
+                                echo $this->Form->textarea('job', array(
+                                    'rows' => '5', 
+                                    'class' => 'form-control', 
+                                    'placeholder' => 'Job title...'
+                                ));
+                                ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Gender</label>
                             <div class="col-sm-9 gender">
-                                <div class="rdio rdio-primary">
-                                    <input type="radio" id="male" value="0" name="data[Employee][gender]" <?php if ($data['Employee']['gender'] == 0) { echo "checked='checked'";} ?> class="valid">
-                                    <label for="male">Male</label>
-                                </div>
-                                <div class="rdio rdio-primary">
-                                    <input type="radio" value="1" id="female" name="data[Employee][gender]" <?php if ($data['Employee']['gender'] == 1) { echo "checked='checked'";} ?> class="valid">
-                                    <label for="female">Female</label>
-                                </div>
+                                <?php 
+                                    echo $this->Form->radio('gender', array(
+                                        '0' => 'Male', 
+                                        '1' => 'Female'
+                                    ), array(
+                                        'legend'    => false
+                                    ));
+                                ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Profile Picture</label>
                             <div class="col-sm-9">
-                                <?php echo $this->Form->input('photo',array( 'type' => 'file', 'label'=> false, 'div'=> false, 'id'=>'pro-image')); ?>
+                                <?php 
+                                echo $this->Form->input('photo',array( 
+                                    'type'  => 'file',  
+                                    'id'    => 'pro-image'
+                                )); 
+                                ?>
                                 <div class="div-pro-img"><img class="pro-img"/></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <?php echo $this->Form->hidden('id', array('value' => $data['Employee']['id']));?>
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-sm-9 col-sm-offset-3">

@@ -51,10 +51,28 @@ class Employee extends AppModel
         )
     );
     
-    public function add($data = array()) {
-        if ($this->create($data)) {
-            return true;
-        }
-        return false;
+    /**
+     * Add Department
+     * 
+     * @param array $data Department data to add
+     * @return mixed Department data on success, false on failure
+     */
+    public function add($data = array())
+    {
+        $this->create();
+        return $this->save($data);
+    }
+    
+    /**
+     * Update Department
+     * 
+     * @param int $id Department Id
+     * @param array $data Department data to update
+     * @return mixed Department data on success, false on failure
+     */
+    public function update($id, $data)
+    {
+        $this->id = $id;
+        return $this->save($data);
     }
 }

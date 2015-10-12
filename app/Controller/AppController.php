@@ -101,23 +101,23 @@ class AppController extends Controller {
 
                     // if upload was successful
                     if ($success) {
-                        $result['urls'] = $rel_url.DS.$filename;
+                        $result['url'] = $rel_url.DS.$filename;
                     } else {
-                        $result['errors'] = "Error uploaded {$filename} Please try again.";
+                        $result['error'] = "Error uploaded {$filename} Please try again.";
                     }
                     break;
                 case UPLOAD_ERR_PARTIAL:
-                    $result['errors'] = "Error uploading {$filename} Please try again.";
+                    $result['error'] = "Error uploading {$filename} Please try again.";
                     break;
                 case UPLOAD_ERR_NO_FILE:
-                    $result['errors'] = "No file selected";
+                    $result['error'] = "No file selected";
                     break;
                 default:
-                    $result['errors'] = "System error uploading {$filename} Contact webmaster.";
+                    $result['error'] = "System error uploading {$filename} Contact webmaster.";
                     break;
             }
         } else {
-            $result['errors'] = "{$filename} cannot be uploaded. Acceptable file types: gif, jpg, png.";
+            $result['error'] = "{$filename} cannot be uploaded. Acceptable file types: gif, jpg, png.";
         }
         return $result;
     }
