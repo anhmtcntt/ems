@@ -127,7 +127,12 @@
                                     'id'    => 'pro-image'
                                 )); 
                                 ?>
-                                <div class="div-pro-img"><img class="pro-img"/></div>
+                                <div class="div-pro-img">
+                                    <?php echo $this->Html->image($this->request->data['Employee']['oldphoto'],array(
+                                        'width' => '50px'
+                                    ));?>
+                                    <?php echo $this->Form->hidden('oldphoto');?>
+                                </div>
                             </div>
                         </div>
                     </div>

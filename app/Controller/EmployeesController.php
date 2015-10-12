@@ -75,6 +75,7 @@ class EmployeesController extends AppController
         // Prepare employees data for form on enter edit screen
         if (empty($this->request->data)) {
 	    $this->request->data = $this->Employee->findById($id);
+            $this->request->data['Employee']['oldphoto'] = $this->request->data['Employee']['photo'];
 	}
         
         if ($this->request->is('post'))
