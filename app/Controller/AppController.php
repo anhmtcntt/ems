@@ -21,6 +21,7 @@
 
 App::uses('Controller', 'Controller');
 
+define ('UPLOAD_FOLDER',"img");
 /**
  * Application Controller
  *
@@ -62,14 +63,15 @@ class AppController extends Controller {
     /**
      * uploads files to the server
      */
-    protected function uploadFile($folder, $file) {
-        // setup dir names absolute and relative
-        $folder_url = WWW_ROOT.$folder;
-        $rel_url = 'upload';
+    protected function uploadFile($folder, $file) 
+    {
+        // setup dir names absolute and relative in img folder
+        $folder_path = WWW_ROOT.UPLOAD_FOLDER.DS.$folder;
+        $rel_path = $folder;
 
         // create the folder if it does not exist
-        if(!is_dir($folder_url)) {
-            mkdir($folder_url);
+        if(!is_dir($folder_path)) {
+            mkdir($folder_path);
         }
 
         // list of permitted file types, this is only images but documents can be added
@@ -91,17 +93,17 @@ class AppController extends Controller {
             switch($file['error']) {
                 case UPLOAD_ERR_OK:
                     // check file exists
-                    if (file_exists($folder_url.DS.$filename)) {
+                    if (file_exists($folder_path.DS.$filename)) {
                         $now = date('YmdHis');
                         $filename = $now.$filename;
                     }
-                    $full_url = $folder.'/'.$filename;
+                    $full_path = UPLOAD_FOLDER.DS.$folder.DS.$filename;
                     
-                    $success = move_uploaded_file($file['tmp_name'], $full_url);
+                    $success = move_uploaded_file($file['tmp_name'], $full_path);
 
                     // if upload was successful
                     if ($success) {
-                        $result['url'] = $rel_url.DS.$filename;
+                        $result['url'] = $rel_path.$filename;
                     } else {
                         $result['error'] = "Error uploaded {$filename} Please try again.";
                     }

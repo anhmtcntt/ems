@@ -1,5 +1,5 @@
 <?php
-define ('PHOTO_FOLDER',"img/upload");
+define ('PHOTO_FOLDER',"upload");
 
 class EmployeesController extends AppController 
 {
