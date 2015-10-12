@@ -54,15 +54,15 @@ class AppController extends Controller {
 
     public function beforeRender() 
     {
-        if ($this->Session->read('Auth.User')) {
-            $this->set('user', $this->Session->read('Auth.User'));
+        if ($this->Auth->user()) {
+            $this->set('user', $this->Auth->user());
         }
     }
     
     /**
      * uploads files to the server
      */
-    protected function uploadFiles($folder, $file) {
+    protected function uploadFile($folder, $file) {
         // setup dir names absolute and relative
         $folder_url = WWW_ROOT.$folder;
         $rel_url = 'upload';
@@ -95,7 +95,7 @@ class AppController extends Controller {
                         $now = date('YmdHis');
                         $filename = $now.$filename;
                     }
-                    $full_url = $folder.DS.$now.$filename;
+                    $full_url = $folder.'/'.$filename;
                     
                     $success = move_uploaded_file($file['tmp_name'], $full_url);
 
