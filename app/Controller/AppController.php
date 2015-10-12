@@ -83,7 +83,7 @@ class AppController extends Controller {
         $typeOK = false;
         // check filetype is ok
         if (in_array($filetype, $permitted)) {
-            $typeOk = true;
+            $typeOK = true;
         }
         // if file type ok upload the file
         if ($typeOK) {
