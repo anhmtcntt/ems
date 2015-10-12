@@ -22,11 +22,9 @@ class DepartmentsController extends AppController
     {
         $employ = $this->Employee->find('list');
         if ($this->request->is('post')) {
-            if (!$this->Department->validates()) {
-                if ($this->Department->add( $this->request->data )) {
-                    $this->Flash->success('Save success!');
-                    $this->redirect(['action' => 'index']);
-                }
+            if ($this->Department->add( $this->request->data )) {
+                $this->Flash->success('Save success!');
+                $this->redirect(['action' => 'index']);
             }
         }
         $this->set('employ',$employ);
