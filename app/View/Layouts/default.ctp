@@ -27,11 +27,8 @@
 <header>
     <div class="headerwrapper">
         <div class="header-left">
-            <a href="/staff" class="logo">
-                <img class="home-logo" src="<?php echo $this->webroot.'img/logo.jpg'; ?>" alt="logo">
-            </a>
             <div class="pull-right">
-                <a href="" class="menu-collapse">
+                <a href="#" class="menu-collapse">
                     <i class="fa fa-bars"></i>
                 </a>
             </div>
@@ -44,7 +41,6 @@
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="/users/changepasswd"><i class="glyphicon glyphicon-wrench"></i> Change Password</a></li>
                         <li class="divider"></li>
                         <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-log-out"></i>Sign Out',array('controller' => 'users','action'=>'logout'),array('escape' => false)); ?></li>
                     </ul>
@@ -60,7 +56,7 @@
         <div class="leftpanel">
             <div class="media profile-left">
                 <a class="pull-left profile-thumb" href="#">
-                    <img class="img-circle" src="<?php echo $this->webroot;?>img/noimage.png" alt="profile image">
+                    <?php echo $this->Html->image('noimage.png', array('alt' => 'profile image', 'class' => 'img-circle'));?>
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading"><?php echo $user['username']; ?></h4>
@@ -70,8 +66,8 @@
 
             <h5 class="leftpanel-title">Menu</h5>
             <ul class="nav nav-pills nav-stacked">
-                <li class=""><a href="<?php echo $this->webroot; ?>departments"><i class="fa fa-stumbleupon-circle"></i> <span>Department</span></a></li>
-                <li class=""><a href="<?php echo $this->webroot; ?>employees"><i class="fa fa-edit"></i> <span>Employee</span></a></li>
+                <li><a href="<?php echo $this->webroot; ?>departments"><i class="fa fa-stumbleupon-circle"></i> <span>Department</span></a></li>
+                <li><a href="<?php echo $this->webroot; ?>employees"><i class="fa fa-edit"></i> <span>Employee</span></a></li>
             </ul>
 
         </div><!-- leftpanel -->

@@ -5,7 +5,7 @@
         </div>
         <div class="media-body left-80">
             <ul class="breadcrumb">
-                <li><i class="glyphicon glyphicon-home"></i></a></li>
+                <li><i class="glyphicon glyphicon-home"></i></li>
                 <li>Action</li>
             </ul>
             <h5>ADD NEW DEPARTMENT</h5>

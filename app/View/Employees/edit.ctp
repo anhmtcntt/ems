@@ -5,7 +5,7 @@
         </div>
         <div class="media-body left-80">
             <ul class="breadcrumb">
-                <li><a href="/staff"><i class="glyphicon glyphicon-home"></i></a></li>
+                <li><i class="glyphicon glyphicon-home"></i></li>
                 <li>Edit</li>
             </ul>
             <h5>EDIT EMPLOYEE</h5>
