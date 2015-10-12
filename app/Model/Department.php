@@ -30,14 +30,21 @@ class Department extends AppModel
         )
     );
     
-    public function search($arr){
+    public function search($keyword) {
         $conditions = '';
-        if ($arr['keyword'] != '') {
-            $conditions = array('Department.name LIKE' => '%' . $arr['keyword'] . '%');
+        if ($keyword != '') {
+            $conditions = array('Department.name LIKE' => '%' . $keyword . '%');
         }
         
         return $this->find('all',array(
             'conditions' => $conditions
         ));
+    }
+    
+    public function add($data = array()) {
+        if ($this->create($data)) {
+            return true;
+        }
+        return false;
     }
 }

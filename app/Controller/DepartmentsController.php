@@ -23,8 +23,8 @@ class DepartmentsController extends AppController
         $employ = $this->Employee->find('list');
         if ($this->request->is('post')) {
             if (!$this->Department->validates()) {
-                if ($this->Department->save( $this->request->data )) {
-                    $this->Session->setFlash('Save success!','success');
+                if ($this->Department->add( $this->request->data )) {
+                    $this->Flash->success('Save success!');
                     $this->redirect(['action' => 'index']);
                 } 
             }
@@ -40,8 +40,8 @@ class DepartmentsController extends AppController
         }
         
         if ($this->Department->delete($id)) {
-            $this->Session->setFlash('Delete success!','success');
-                    $this->redirect(['action' => 'index']);
+            $this->Flash->success('Delete success!');
+            $this->redirect(['action' => 'index']);
         } else {
             throw new InternalErrorException();
         }
@@ -61,7 +61,7 @@ class DepartmentsController extends AppController
             if (!$this->Department->validates()) {
                 
                 if ($this->Department->save( $this->request->data )) {
-                    $this->Session->setFlash('Edit success!','success');
+                    $this->Flash->success('Edit success!');
                     $this->redirect(['action' => 'index']);
                 } 
             }

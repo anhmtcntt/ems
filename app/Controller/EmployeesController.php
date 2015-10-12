@@ -26,16 +26,16 @@ class EmployeesController extends AppController
                 // upload file if exists
                 if ($filename != '') {
                     $upload = $data['Employee']['photo'];
-                    $result = $this->uploadFiles(PHOTO_FOLDER, $upload);
+                    $result = $this->uploadFile(PHOTO_FOLDER, $upload);
                     if (isset($result['errors'])) {
                         $uploadOk = false;
-                        $this->Session->setFlash($result['errors']);
+                        $this->Flash->error($result['errors']);
                     } else {
                         $data['Employee']['photo'] = $result['urls'];
                     }
                 }
-                if ($uploadOk && $this->Employee->save( $data )) {
-                    $this->Session->setFlash('Save success!','success');
+                if ($uploadOk && $this->Employee->add( $data )) {
+                    $this->Flash->success('Save success!');
                     $this->redirect(['action' => 'index']);
                 } 
             }
@@ -53,7 +53,7 @@ class EmployeesController extends AppController
         }
         
         if ($this->Employee->delete($id)) {
-            $this->Session->setFlash('Delete success!','success');
+            $this->Flash->success('Delete success!');
             $this->redirect(['action' => 'index']);
         } else {
             throw new InternalErrorException();
@@ -78,8 +78,8 @@ class EmployeesController extends AppController
                 $uploadOk = true;
                 // upload file if exists
                 if ($filename != '') {
-                    $upload['photo'] = $data['Employee']['photo'];
-                    $result = $this->uploadFiles(PHOTO_FOLDER, $upload);
+                    $upload = $data['Employee']['photo'];
+                    $result = $this->uploadFile(PHOTO_FOLDER, $upload);
                     if (isset($result['errors'])) {
                         $uploadOk = false;
                         $this->Session->setFlash($result['errors'][0]);

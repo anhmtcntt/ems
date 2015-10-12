@@ -50,4 +50,11 @@ class Employee extends AppModel
             'fields' => array('Department.id','Department.name')
         )
     );
+    
+    public function add($data = array()) {
+        if ($this->create($data)) {
+            return true;
+        }
+        return false;
+    }
 }
