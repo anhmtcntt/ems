@@ -65,7 +65,7 @@ class AppController extends Controller {
     protected function uploadFiles($folder, $file) {
         // setup dir names absolute and relative
         $folder_url = WWW_ROOT.$folder;
-        $rel_url = $folder;
+        $rel_url = 'upload';
 
         // create the folder if it does not exist
         if(!is_dir($folder_url)) {
@@ -89,36 +89,34 @@ class AppController extends Controller {
             // switch based on error code
             switch($file['error']) {
                 case UPLOAD_ERR_OK:
-                    // check filename already exists
-                    if(!file_exists($folder_url.DS.$filename)) {
-                        $full_url = $folder_url.DS.$filename;
-                        $url = $rel_url.DS.$filename;
-                    } else {
-                        // create unique filename and upload file
+                    // check file exists
+                    if (file_exists($folder_url.DS.$filename)) {
                         $now = date('YmdHis');
-                        $full_url = $folder_url.DS.$now.$filename;
-                        $url = $rel_url.DS.$now.$filename;
+                        $filename = $now.$filename;
                     }
-                    $success = move_uploaded_file($file['tmp_name'], $url);
+                    $full_url = $folder.DS.$now.$filename;
+                    
+                    $success = move_uploaded_file($file['tmp_name'], $full_url);
 
                     // if upload was successful
-                    if($success) {
-                        $result['urls'][] = $url;
+                    if ($success) {
+                        $result['urls'] = $rel_url.DS.$filename;
                     } else {
-                        $result['errors'][] = "Error uploaded {$filename} Please try again.";
+                        $result['errors'] = "Error uploaded {$filename} Please try again.";
                     }
                     break;
                 case UPLOAD_ERR_PARTIAL:
-                    $result['errors'][] = "Error uploading {$filename} Please try again.";
+                    $result['errors'] = "Error uploading {$filename} Please try again.";
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    $result['errors'] = "No file selected";
                     break;
                 default:
-                    $result['errors'][] = "System error uploading {$filename} Contact webmaster.";
+                    $result['errors'] = "System error uploading {$filename} Contact webmaster.";
                     break;
             }
-        } elseif($file['error'] == UPLOAD_ERR_NO_FILE) {
-            $result['nofiles'][] = "No file selected";
         } else {
-            $result['errors'][] = "{$filename} cannot be uploaded. Acceptable file types: gif, jpg, png.";
+            $result['errors'] = "{$filename} cannot be uploaded. Acceptable file types: gif, jpg, png.";
         }
         return $result;
     }
