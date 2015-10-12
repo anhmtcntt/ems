@@ -14,6 +14,7 @@
 </div>
 
 <div class="contentpanel">
+    <?php echo $this->Flash->render();?>
   <div class="col-md-12">
       <?php
       echo $this->Form->create('Department', array(

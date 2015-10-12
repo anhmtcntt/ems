@@ -14,7 +14,7 @@
 </div>
 
 <div class="contentpanel">
-    <?php echo $this->Session->flash();?>
+    <?php echo $this->Flash->render();?>
     <div class="col-md-12">
         <?php echo $this->Form->create('Department', array('id' => 'addEmployee', 'novalidate' => 'novalidate')); ?>
         <div class="panel panel-default">

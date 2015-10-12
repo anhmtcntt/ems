@@ -35,9 +35,7 @@ class UsersController extends AppController
     
     public function logout()
     {
-        $this->autoRender = false;
-        $this->Session->destroy();
-        $this->redirect($this->Auth->redirectUrl());
+        return $this->redirect($this->Auth->redirectUrl());
     }
 
     public function add() {

@@ -4,7 +4,7 @@ class EmployeesController extends AppController
 {
     const PHOTO_FOLDER = 'upload';
 
-    public $uses = array('Employee','Department');
+    public $uses = array('Employee', 'Department');
     
     
     public function index()
@@ -70,7 +70,7 @@ class EmployeesController extends AppController
         
         // Get department list
         $department = $this->Department->find('list');
-        $this->set('department',$department);
+        $this->set('department', $department);
         
         // Prepare employees data for form on enter edit screen
         if (empty($this->request->data)) {
@@ -94,7 +94,7 @@ class EmployeesController extends AppController
                 $data['Employee']['photo'] = $result['url'];
             }
             
-            if ($this->Employee->update($id,$data)) {
+            if ($this->Employee->update($id, $data)) {
                 // TODO: delete old photo file if changed
                 
                 $this->Flash->success('Edit success!');
@@ -113,6 +113,6 @@ class EmployeesController extends AppController
         $data = $this->Employee->findById($id);
         
         //set view 
-        $this->set('data',$data);
+        $this->set('data', $data);
     }
 }

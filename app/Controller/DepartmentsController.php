@@ -8,7 +8,7 @@
 
 class DepartmentsController extends AppController
 {
-    public $uses = array('Department','Employee');
+    public $uses = array('Department', 'Employee');
 
     public function index()
     {
@@ -93,7 +93,8 @@ class DepartmentsController extends AppController
         $this->layout = false;
 
         if ( $this->request->isAjax() ) {
-            $data = $this->Department->search($this->request->data);
+            $keyword = $this->request->params['keyword'];
+            $data = $this->Department->search($keyword);
 
             $this->set('data', $data);
         }

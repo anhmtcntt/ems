@@ -32,12 +32,12 @@
             <div class="table-responsive">
             <table class="table table-bordered table-dark table-invoice">
             <thead>
-              <tr>
-                <th>#</th>
-                <th>Employee name</th>
-                <th>Gender</th>
-                <th>Email</th>
-              </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Employee name</th>
+                    <th>Gender</th>
+                    <th>Email</th>
+                </tr>
             </thead>
             <tbody>
               <?php if (count($data['Employee']) > 0) : 
@@ -46,9 +46,13 @@
                     ?>
                     <tr>
                         <td class="width3pc"><?php echo $row++; ?></td>
-                        <td><a href="<?php echo $this->webroot.'employees/detail/'.$ele['id'];?>"><?php echo $ele['name']; ?></a></td>
-                      <td><?php echo $ele['gender']==0?"Male":"Female"; ?></td>
-                      <td><?php echo $ele['email']; ?></td>
+                        <td><?php echo $this->Html->link($ele['name'],array('controller'=>'employees','action'=>'detail',$ele['id']));?>
+                        <td><?php 
+                        echo $ele['gender']==0?
+                                "Male":"Female"; 
+                        ?>
+                        </td>
+                        <td><?php echo $ele['email']; ?></td>
                     </tr>
                 <?php 
                 endforeach;
