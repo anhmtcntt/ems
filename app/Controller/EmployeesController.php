@@ -25,13 +25,13 @@ class EmployeesController extends AppController
                 $uploadOk = true;
                 // upload file if exists
                 if ($filename != '') {
-                    $upload['photo'] = $data['Employee']['photo'];
+                    $upload = $data['Employee']['photo'];
                     $result = $this->uploadFiles(PHOTO_FOLDER, $upload);
                     if (isset($result['errors'])) {
                         $uploadOk = false;
-                        $this->Session->setFlash($result['errors'][0]);
+                        $this->Session->setFlash($result['errors']);
                     } else {
-                        $data['Employee']['photo'] = $result['urls'][0];
+                        $data['Employee']['photo'] = $result['urls'];
                     }
                 }
                 if ($uploadOk && $this->Employee->save( $data )) {
