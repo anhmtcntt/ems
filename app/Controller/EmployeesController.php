@@ -27,8 +27,6 @@ class EmployeesController extends AppController
                 if ($filename != '') {
                     $upload = $data['Employee']['photo'];
                     $result = $this->uploadFiles(PHOTO_FOLDER, $upload);
-                    var_dump($result);
-                    die;
                     if (isset($result['errors'])) {
                         $uploadOk = false;
                         $this->Session->setFlash($result['errors']);
