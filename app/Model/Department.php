@@ -40,4 +40,19 @@ class Department extends AppModel
             'conditions' => $conditions
         ));
     }
+    
+    
+    /**
+     * Update Department
+     * 
+     * @param int $id Department Id
+     * @param array $data Department data to update
+     * @return mixed Department data on success, false on failure
+     */
+    public function update($id, $data)
+    {
+	$this->id = $id;
+	return $this->save($data);
+    }
+
 }
