@@ -21,7 +21,6 @@
 
 App::uses('Controller', 'Controller');
 
-define ('UPLOAD_FOLDER',"img");
 /**
  * Application Controller
  *
@@ -65,14 +64,8 @@ class AppController extends Controller {
      */
     protected function uploadFile($folder, $file) 
     {
-        // setup dir names absolute and relative in img folder
-        $folder_path = WWW_ROOT.UPLOAD_FOLDER.DS.$folder;
-        $rel_path = $folder;
-
-        // create the folder if it does not exist
-        if(!is_dir($folder_path)) {
-            mkdir($folder_path);
-        }
+        // Always upload to img folder
+        $folder_path = WWW_ROOT.'img'.DS.$folder;
 
         // list of permitted file types, this is only images but documents can be added
         $permitted = array("image/gif","image/jpeg","image/pjpeg","image/png");
@@ -92,18 +85,20 @@ class AppController extends Controller {
             // switch based on error code
             switch($file['error']) {
                 case UPLOAD_ERR_OK:
+                    // create the folder if it does not exist
+                    if(!is_dir($folder_path)) {
+                        mkdir($folder_path, '0744', true);
+                    }
                     // check file exists
                     if (file_exists($folder_path.DS.$filename)) {
                         $now = date('YmdHis');
                         $filename = $now.$filename;
                     }
-                    $full_path = UPLOAD_FOLDER.DS.$folder.DS.$filename;
-                    
-                    $success = move_uploaded_file($file['tmp_name'], $full_path);
+                    $success = move_uploaded_file($file['tmp_name'], $folder_path.DS.$filename);
 
                     // if upload was successful
                     if ($success) {
-                        $result['url'] = $rel_path.$filename;
+                        $result['url'] = str_replace('\\', '/', "{$folder}/{$filename}");
                     } else {
                         $result['error'] = "Error uploaded {$filename} Please try again.";
                     }

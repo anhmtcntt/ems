@@ -1,8 +1,9 @@
 <?php
-define ('PHOTO_FOLDER',"upload");
 
 class EmployeesController extends AppController 
 {
+    const PHOTO_FOLDER = 'upload';
+
     public $uses = array('Employee','Department');
     
     
@@ -16,35 +17,33 @@ class EmployeesController extends AppController
     
     public function add()
     {
+        // Get department list
         $department = $this->Department->find('list');
+        $this->set('department',$department);
         
         if ($this->request->is('post')) {
             $data = $this->request->data;
-            $filename = $data['Employee']['photo']['name'];
-            $uploadOk = true;
-            // upload file if exists
-            if ($filename != '') {
-                $upload = $data['Employee']['photo'];
-                $result = $this->uploadFile(PHOTO_FOLDER, $upload);
-                if (isset($result['error'])) {
-                    $uploadOk = false;
-                    $this->Flash->error($result['error']);
-                } else {
-                    $filename = $result['url'];
-                }
-            }
-            $data['Employee']['photo'] = $filename;
             
-            if ($uploadOk && $this->Employee->add( $data )) {
+            // Process upload photo if exists
+            if (!empty($data['Employee']['photo']['name'])) {
+                $upload   = $data['Employee']['photo'];
+                $result   = $this->uploadFile(self::PHOTO_FOLDER, $upload);
+                if (isset($result['error'])) {
+                    $this->Flash->error($result['error']);
+                    unset($this->request->data['Employee']['photo']);
+                    return;
+                }
+                $data['Employee']['photo'] = $result['url'];
+            }
+
+
+            if ($this->Employee->add($data)) {
                 $this->Flash->success('Add new employee success!');
                 $this->redirect(['action' => 'index']);
-            } 
-            
+            }
+
             $this->Flash->error('Unable to add new employee.');
         }
-        
-        //set view 
-        $this->set('department',$department);
     }
     
     public function delete($id)
@@ -68,8 +67,10 @@ class EmployeesController extends AppController
         if (!$this->Employee->exists($id)) {
             throw new NotFoundException();
         }
-        //set default data
+        
+        // Get department list
         $department = $this->Department->find('list');
+        $this->set('department',$department);
         
         // Prepare employees data for form on enter edit screen
         if (empty($this->request->data)) {
@@ -79,35 +80,27 @@ class EmployeesController extends AppController
         if ($this->request->is('post'))
         {
             $data = $this->request->data;
-            $filename = $data['Employee']['photo']['name'];
-            $uploadOk = true;
-            // upload file if exists
-            if ($filename != '') {
-                $upload = $data['Employee']['photo'];
-                $result = $this->uploadFile(PHOTO_FOLDER, $upload);
-                if (isset($result['errors'])) {
-                    $uploadOk = false;
+            
+            // Process upload photo if exists
+            if (!empty($data['Employee']['photo']['name'])) {
+                $upload   = $data['Employee']['photo'];
+                $result   = $this->uploadFile(self::PHOTO_FOLDER, $upload);
+                if (isset($result['error'])) {
                     $this->Flash->error($result['error']);
-                } else {
-                    $data['Employee']['photo'] = $result['url'];
+                    unset($this->request->data['Employee']['photo']);
+                    return;
                 }
-            } else {
-                //if filename not exists, dont update this field
-                unset($data['Employee']['photo']);
+                $data['Employee']['photo'] = $result['url'];
             }
-            if ($uploadOk && $this->Employee->update($id,$data)) {
+            
+            if ($this->Employee->update($id,$data)) {
+                // TODO: delete old photo file if changed
+                
                 $this->Flash->success('Edit success!');
-                $this->redirect(['action' => 'index']);
-            } else {
-                if (file_exists('img'.DS.$filename)) {
-                    unlink('img'.DS.$filename);
-                }
-                $this->Flash->error('Unable to update employee.');
+                return $this->redirect(['action' => 'index']);
             }
+            $this->Flash->error('Unable to update employee.');
         }
-        
-        //set view 
-        $this->set('department',$department);
     }
     
     public function detail($id) 
