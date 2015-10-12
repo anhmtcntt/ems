@@ -87,7 +87,6 @@ class AppController extends Controller {
         }
         // if file type ok upload the file
         if ($typeOK) {
-            echo "here";
             // switch based on error code
             switch($file['error']) {
                 case UPLOAD_ERR_OK:
