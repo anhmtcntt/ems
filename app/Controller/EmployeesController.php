@@ -12,14 +12,14 @@ class EmployeesController extends AppController
         $data = $this->Employee->find('all');
         
         //set view
-        $this->set('data',$data);
+        $this->set('data', $data);
     }
     
     public function add()
     {
         // Get department list
-        $department = $this->Department->find('list');
-        $this->set('department',$department);
+        $departments = $this->Department->find('list');
+        $this->set('departments',$departments);
         
         if ($this->request->is('post')) {
             $data = $this->request->data;

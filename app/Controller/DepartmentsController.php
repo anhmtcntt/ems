@@ -15,7 +15,7 @@ class DepartmentsController extends AppController
         $data = $this->Department->find('all');
 
         //set view
-        $this->set('data',$data);
+        $this->set('data', $data);
     }
 
     public function add()
@@ -27,7 +27,7 @@ class DepartmentsController extends AppController
                 $this->redirect(['action' => 'index']);
             }
         }
-        $this->set('employ',$employ);
+        $this->set('employ', $employ);
     }
 
     public function delete($id)
@@ -59,7 +59,7 @@ class DepartmentsController extends AppController
 
 	// Get manager list for view
         $managers = $this->Employee->find('list');
-        $this->set('managers',$managers);
+        $this->set('managers', $managers);
 
 	// Update department
         if ($this->request->is('post')) {
@@ -85,7 +85,7 @@ class DepartmentsController extends AppController
         $data = $this->Department->findById($id);
 
         //set view
-        $this->set('data',$data);
+        $this->set('data', $data);
     }
 
     public function search()

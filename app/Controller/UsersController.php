@@ -16,12 +16,6 @@ class UsersController extends AppController
        $this->Auth->allow('add');
     }
     
-    public function index()
-    {
-        echo "abc";
-        var_dump($this->Session->read('Auth.User'));
-    }
-    
     public function login() 
     {   
         $this->layout = 'login';

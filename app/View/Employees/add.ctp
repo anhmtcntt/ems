@@ -26,7 +26,7 @@
                             <label class="col-sm-3 control-label">Department <span class="asterisk color-red">*</span></label>
                             <div class="col-sm-9">
                                 <?php echo $this->Form->input('department_id', array(
-                                    'options' => $department,
+                                    'options' => $departments,
                                     'empty' => 'Select Department',
                                     'id' => 'department',
                                     'label' => false,
