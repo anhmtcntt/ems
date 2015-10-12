@@ -30,9 +30,11 @@ class EmployeesController extends AppController
                     $uploadOk = false;
                     $this->Flash->error($result['error']);
                 } else {
-                    $data['Employee']['photo'] = $result['url'];
+                    $filename = $result['url'];
                 }
             }
+            $data['Employee']['photo'] = $filename;
+            
             if ($uploadOk && $this->Employee->add( $data )) {
                 $this->Flash->success('Add new employee success!');
                 $this->redirect(['action' => 'index']);
