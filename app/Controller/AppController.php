@@ -73,19 +73,21 @@ class AppController extends Controller {
         }
 
         // list of permitted file types, this is only images but documents can be added
-        $permitted = array('image/gif','image/jpeg','image/pjpeg','image/png');
+        $permitted = array("image/gif","image/jpeg","image/pjpeg","image/png");
        
         // replace spaces with underscores
         $filename = str_replace(' ', '_', $file['name']);
+        $filetype = $file['type'];
+
         // assume filetype is false
         $typeOK = false;
         // check filetype is ok
-        if (in_array($filename, $permitted)) {
+        if (in_array($filetype, $permitted)) {
             $typeOk = true;
         }
-
         // if file type ok upload the file
-        if($typeOK) {
+        if ($typeOK) {
+            echo "here";
             // switch based on error code
             switch($file['error']) {
                 case UPLOAD_ERR_OK:
